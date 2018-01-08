@@ -42,7 +42,16 @@ public class Method_02_Test {
         public List<Person> findAll() {
             return people;
         }
-
+        public String format(){
+        	String str="";
+        	int cpt = 0;
+        	for (Person person : findAll()){
+        		cpt++;
+        	}
+        	str += "DaoA"+"["+cpt+" persons]";
+        	return str;    	
+        }
+        
         // TODO redéfinir la méthode String format()
         // TODO la méthode retourne une chaîne de la forme DaoA[<nb_personnes> persons]
         // TODO exemple de résultat : "DaoA[14 persons]", "DaoA[30 persons]"
@@ -58,7 +67,7 @@ public class Method_02_Test {
 
         // TODO invoquer la méthode format() pour que le test soit passant
         String result = null;
-        result = "DaoA"+daoA.format();
+        result = daoA.format();
 
         assertTrue("DaoA[20 persons]".equals(result));
     }
