@@ -83,12 +83,6 @@ public class Lambda_04_Test {
         List<Person> personList = Data.buildPersonList(100);
         FuncCollection<Person> personFuncCollection = new FuncCollection<>();
         personFuncCollection.addAll(personList);
-        GenericPredicate<Person> sup50Predicate = p -> p.getAge() > 50;
-        GenericMapper<Person,Account> personToAccountMapper = p -> new Account(p, 1000);
-        Processor<Account> processor = a -> {
-        	assert a.getBalance() == 1000;
-        	assert a.getOwner().getAge() > 50;
-        };
         personFuncCollection
                 // TODO filtrer, ne garder uniquement que les personnes ayant un age > 50       		
                 .filter( p -> p.getAge() > 50)
