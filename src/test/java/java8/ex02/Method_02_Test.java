@@ -42,14 +42,9 @@ public class Method_02_Test {
         public List<Person> findAll() {
             return people;
         }
+        @Override
         public String format(){
-        	String str="";
-        	int cpt = 0;
-        	for (Person person : findAll()){
-        		cpt++;
-        	}
-        	str += "DaoA"+"["+cpt+" persons]";
-        	return str;    	
+        	return "DaoA"+IDao.super.format();
         }
         
         // TODO redéfinir la méthode String format()
