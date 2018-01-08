@@ -5,6 +5,7 @@ import java8.data.Data;
 import java8.data.Person;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,12 +18,26 @@ public class Lambda_02_Test {
     interface PersonToAccountMapper {
         Account map(Person p);
     }
+    interface PersonToFirstNameMapper{
+    	String map(Person p);
+    }
     // end::PersonToAccountMapper[]
+    
 
     // tag::map[]
     private List<Account> map(List<Person> personList, PersonToAccountMapper mapper) {
-        // TODO implémenter la méthode pour transformer une liste de personnes en liste de comptes
-        return null;
+    	List<Account> accounts = new ArrayList<Account>(); 
+		for (Person p : personList) {			
+				accounts.add( mapper.map(p));
+		}
+		return accounts;
+    }
+    private List<String> map(List<Person> personList, PersonToFirstNameMapper mapper) {
+    	List<String> firstName = new ArrayList<String>(); 
+		for (Person p : personList) {			
+				firstName.add( mapper.map(p));
+		}
+		return firstName;
     }
     // end::map[]
 
@@ -33,9 +48,8 @@ public class Lambda_02_Test {
 
         List<Person> personList = Data.buildPersonList(100);
 
-        // TODO transformer la liste de personnes en liste de comptes
-        // TODO tous les objets comptes ont un solde à 100 par défaut
-        List<Account> result = map(personList, null);
+        PersonToAccountMapper personToAccountMapper = p -> new Account(p, 100);
+        List<Account> result = map(personList, personToAccountMapper);
 
         assert result.size() == personList.size();
         for (Account account : result) {
@@ -48,11 +62,11 @@ public class Lambda_02_Test {
     // tag::test_map_person_to_firstname[]
     @Test
     public void test_map_person_to_firstname() throws Exception {
-
+    	
         List<Person> personList = Data.buildPersonList(100);
-
+        PersonToFirstNameMapper firstNameMapper = p -> p.getFirstname();
         // TODO transformer la liste de personnes en liste de prénoms
-        List<String> result = null;
+        List<String> result = map(personList, firstNameMapper);
 
         assert result.size() == personList.size();
         for (String firstname : result) {
