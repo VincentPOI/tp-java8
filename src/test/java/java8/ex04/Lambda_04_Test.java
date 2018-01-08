@@ -80,13 +80,10 @@ public class Lambda_04_Test {
 		List<Person> personList = Data.buildPersonList(100);
 		FuncCollection<Person> personFuncCollection = new FuncCollection<>();
 		personFuncCollection.addAll(personList);
-		personFuncCollection
-				.filter(p -> p.getAge() > 50)
-				.map(p -> new Account(p, 1000))
-				.forEach(a -> {
-					assert a.getBalance() == 1000;
-					assert a.getOwner().getAge() > 50;
-				});
+		personFuncCollection.filter(p -> p.getAge() > 50).map(p -> new Account(p, 1000)).forEach(a -> {
+			assert a.getBalance() == 1000;
+			assert a.getOwner().getAge() > 50;
+		});
 	}
 	// end::test_filter_map_forEach[]
 
