@@ -56,9 +56,7 @@ public class Method_01_Test {
 
 		// TODO invoquer la méthode sumAge pour que le test soit passant
 		int result = 0;
-		DaoA a = new DaoA();
-		result = a.sumAge();
-
+		result = daoA.sumAge();
 		assert result == 210;
 	}
 
@@ -69,8 +67,7 @@ public class Method_01_Test {
 
 		// TODO invoquer la méthode sumAge pour que le test soit passant
 		int result = 0;
-		DaoB b = new DaoB();
-		result = b.sumAge();
+		result = daoB.sumAge();
 		assert result == 5050;
 
 	}
