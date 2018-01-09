@@ -110,12 +110,17 @@ public class Stream_05_Test {
     public void test_collectingAndThen() throws IOException {
         // TODO utiliser la méthode java.nio.file.Files.lines pour créer un stream de lignes du fichier naissances_depuis_1900.csv
         // Le bloc try(...) permet de fermer (close()) le stream après utilisation
-        try (Stream<String> lines = null) {
+        try (Stream<String> lines = Files.lines(Paths.get(NAISSANCES_DEPUIS_1900_CSV))) {
 
             // TODO construire une MAP (clé = année de naissance, valeur = maximum de nombre de naissances)
             // TODO utiliser la méthode "collectingAndThen" à la suite d'un "grouping"
-            Map<String, Naissance> result = null;
-
+            Map<String, Naissance> result = lines.skip(1).map(str -> {
+            	String[] infos = str.split(";");
+            	Naissance n = new Naissance(infos[1], infos[2], Integer.parseInt(infos[3]));
+            	return n;
+            }).collect(Collectors.groupingBy(n -> n.getAnnee(),Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparingInt(n -> n.getNombre())), opt -> opt.get())));
+            
+            
             assertThat(result.get("2015").getNombre(), is(38));
             assertThat(result.get("2015").getJour(), is("20150909"));
             assertThat(result.get("2015").getAnnee(), is("2015"));
